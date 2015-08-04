@@ -1,0 +1,6 @@
+<p>
+<form method="get" action="/quizes/<%= quiz.id %>/answer">        
+    <label for="respuesta">Pregunta: <%= quiz.pregunta %></label><p>
+    <input type="text" id="respuesta" name="respuesta" value="" placeholder="Responda aquí" required autofocus/>
+    <input type="submit" value="Enviar">
+</form>
