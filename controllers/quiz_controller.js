@@ -20,9 +20,19 @@ exports.load = function(req, res, next, quizId) {
 };*/
 // GET /quizes
 exports.index = function(req, res) {  
-  models.Quiz.findAll().then(function(quizes) {  
+  /*models.Quiz.findAll().then(function(quizes) {  
     res.render('quizes/index', { quizes: quizes, title: 'Quiz' });  
-  }).catch(function(error) { next(error);}) 
+  }).catch(function(error) { next(error);}) */
+  if (!req.query.search){
+	models.Quiz.findAll().then(function(quizes) {  
+	  res.render('quizes/index', { quizes: quizes, title: 'Quiz' });  
+	}).catch(function(error) { next(error);}) 
+  } else {
+    var search = "%" + req.query.search + "%";	
+    models.Quiz.findAll({ where: { pregunta: { $like:  search.replace(/(\s)+/g, '%') } } }).then(function(quizes) {  
+	  res.render('quizes/index', { quizes: quizes, title: 'Quiz' });  
+	}).catch(function(error) { next(error);})    
+  }
 };  
 
 // GET /quizes/:id  
