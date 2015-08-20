@@ -42,6 +42,21 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.use(function(req, res, next) {
+	var time_actual = new Date();
+	var dif_time = time_actual.getTime() - req.session.time;
+	if (req.session.time && (dif_time > 120000)) {
+		delete req.session.user;
+		delete req.session.time;
+		res.redirect(req.session.redir.toString());
+		return;
+	} else {
+		req.session.time = time_actual.getTime();
+		res.locals.session = req.session;
+		next();
+    }		
+});
+
 app.use('/', routes);
 
 // catch 404 and forward to error handler
