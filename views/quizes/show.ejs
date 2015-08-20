@@ -3,4 +3,10 @@
     <label for="respuesta">Pregunta: <%= quiz.pregunta %></label><p>
     <input type="text" id="respuesta" name="respuesta" value="" placeholder="Responda aquí" required autofocus/>
     <input type="submit" value="Enviar">
-</form>
+</form><br />
+<p><a href="/quizes/<%= quiz.id %>/comments/new"><button>Nuevo comentario</button></a></p>
+
+<p><strong>Comentarios:</strong></p>
+<%for(index in quiz.Comments){%>
+	<p>- <%=quiz.Comments[index].texto%></p>
+<%}%>
